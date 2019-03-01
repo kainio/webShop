@@ -1,0 +1,64 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="WebApplication1.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>webShop</title>
+
+	<link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	  <a class="navbar-brand" href="/Default.aspx">webShop</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+      <ul class="navbar-nav navmr-auto">
+        <asp:ContentPlaceHolder runat="server" ID="MainMenu">
+            <li class="nav-item">
+			    <a class="nav-link" href="/Default.aspx">Accueil</a>
+		    </li>
+		    <li class="nav-item">
+			    <a class="nav-link" href="/collection.aspx">Collection</a>
+		    </li>
+        </asp:ContentPlaceHolder>
+	  </ul>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <div class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+            <a class="nav-link" href="Panier.aspx" tabindex="-1" aria-disabled="true">
+                (<%= Session["CartItemsCount"] %>)
+                <img width="25" height="25" alt="shopping cart" src="Content/Images/shopping-cart.png" />   
+                <% if(Session["login"] != null) { %>
+                    <asp:Label ID="Label1" runat="server"><%= Session["login"] %></asp:Label>
+                <% }%>
+		    </a>
+            <% if(Session["iduser"] != null) { %>
+               <asp:HyperLink ID="btn_logout" CssClass="nav-link" NavigateUrl="default.aspx?logout=1" runat="server">Se déconnecter</asp:HyperLink>
+            <% } else { %>
+                <a ID="btn_login" class="nav-link" href="Default.aspx" runat="server">Se connecter</a>
+            <% } %>
+        </div>
+	  </div>
+	</nav>
+	<div>
+		<div class="container mt-2">
+            <% if(Lbl_error.Text.Trim() != ""){%>
+            <div class="alert alert-danger" role="alert">
+                <asp:Label ID="Lbl_error" runat="server" Text=""></asp:Label>
+            </div>
+            <% } %>
+	        
+		    <asp:ContentPlaceHolder ID="mainContent" runat="server">
+		    </asp:ContentPlaceHolder>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="Script/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="Script/bootstrap.min.js"></script>
+</body>
+</html>
