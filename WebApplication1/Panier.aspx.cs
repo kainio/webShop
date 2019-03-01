@@ -88,7 +88,7 @@ namespace WebApplication1
                 cmd.CommandText = @"update lineitems set quantité = @quantité where iduti =@iduser and idprod=@idprod";
                 cmd.Parameters.AddWithValue("quantité", (GridView1.Rows[e.RowIndex].FindControl("Txt_EditItem_qte") as TextBox).Text.Trim());
                 cmd.Parameters.AddWithValue("iduser", this.Session["iduser"]);
-                cmd.Parameters.AddWithValue("idprod", (GridView1.Rows[e.RowIndex].FindControl("Lbl_EditItem_idprod") as Label).Text.Trim());
+                cmd.Parameters.AddWithValue("idprod", (GridView1.Rows[e.RowIndex].FindControl("HiddenField_idprod") as HiddenField).Value.Trim());
                 cmd.ExecuteNonQuery();
             }
             finally
